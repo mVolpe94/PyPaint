@@ -31,7 +31,29 @@ X_HOVER_IMAGE = pygame.transform.scale(X_HOVER_IMAGE, (40, 40))
 paint = True
 paint_still = False
 
+TICK_SPEED = 60 #sets 60fps
+clock = pygame.time.Clock()
+
 pygame.display.set_caption("PyPaint  v1.0")
+
+
+
+def draw_trail(color):
+    for line in BLUE_TRAIL:
+        pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
+    for line in RED_TRAIL:
+        pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
+    for line in GREEN_TRAIL:
+        pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
+        
+        
+def clearTrails():
+    BLUE_TRAIL.clear()
+    RED_TRAIL.clear()
+    GREEN_TRAIL.clear()
+    YELLOW_TRAIL.clear()
+    MAGENTA_TRAIL.clear()
+    ORANGE_TRAIL.clear()
 
 while running:
 
@@ -45,22 +67,7 @@ while running:
     WINDOW.blit(X_HOVER_IMAGE, (-2, 400))
 
 
-    def draw_trail(color):
-        for line in BLUE_TRAIL:
-            pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
-        for line in RED_TRAIL:
-            pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
-        for line in GREEN_TRAIL:
-            pygame.draw.circle(WINDOW, color, (line[0], line[1]), paint_mode, index)
 
-
-    def clearTrails():
-        BLUE_TRAIL.clear()
-        RED_TRAIL.clear()
-        GREEN_TRAIL.clear()
-        YELLOW_TRAIL.clear()
-        MAGENTA_TRAIL.clear()
-        ORANGE_TRAIL.clear()
 
 
     for event in pygame.event.get():
@@ -226,5 +233,7 @@ while running:
                     pygame.draw.circle(WINDOW, paint_color, (x, y), paint_mode, index)
 
                     pygame.display.update()
-
+        
+        clock.tick(TICK_SPEED)
+        
         pygame.display.update()
